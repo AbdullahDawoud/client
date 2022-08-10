@@ -1,0 +1,17 @@
+* {
+    font-family: roboto, droid-sans, Rubik, sans-serif;
+}
+
+
+.flex {
+    display: flex;
+
+    &.flex-btw {
+        justify-content: space-between;
+    }
+}
+
+
+h3 {
+    font-weight: 500;
+}

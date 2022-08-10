@@ -1,0 +1,11 @@
+.author-row {
+  border: 2px solid lavender;
+  padding: 15px;
+  margin-bottom: 20px;
+
+  .books {
+    display: flex;
+    flex-direction: row;
+
+  }
+}
