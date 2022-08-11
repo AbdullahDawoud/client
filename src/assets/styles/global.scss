@@ -1,0 +1,79 @@
+@use './colors.scss';
+
+* {
+  font-family: 'roboto', sans-serif;
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+
+button,
+.clickable {
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.btn {
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  border-radius: 10px;
+}
+
+.btn-icon {
+  background: colors.$blue;
+  width: 48px;
+
+  i {
+    font-size: 18px;
+  }
+}
+
+.btn-yellow {
+  background: colors.$yellow;
+
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-icon-only {
+  background: none;
+  color: colors.$gray;
+
+  i {
+    font-size: 18px;
+  }
+}
+
+
+.flex {
+  display: flex;
+
+  &.flex-btw {
+    justify-content: space-between;
+  }
+}
+
+
+h3 {
+  font-weight: 500;
+}
+
+.label {
+  background: rgb(212, 194, 27);
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 7px;
+  color: white;
+}

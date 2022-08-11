@@ -1,4 +1,4 @@
-$main-color: #5C46AB;
+@use '../assets/styles/colors.scss';
 
 .books-wrapper {
     display: flex;
@@ -50,23 +50,23 @@ $main-color: #5C46AB;
             padding: 5px 17px;
             border: none;
             border-radius: 8px;
-            background: $main-color;
+            background: colors.$main-color;
             color: white;
             cursor: pointer;
             text-decoration: none;
             font-size: 14px;
 
             &.active {
-                border-bottom: 3px solid $main-color;
+                border-bottom: 3px solid colors.$main-color;
 
             }
 
             &:hover {
-                background: lighten($main-color, 10%)
+                background: lighten(colors.$main-color, 10%)
             }
 
             &:active {
-                background: darken($main-color, 10%)
+                background: darken(colors.$main-color, 10%)
             }
         }
 
