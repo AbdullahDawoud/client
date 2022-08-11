@@ -1,39 +1,18 @@
-import { graphql } from "gatsby";
 import * as React from "react";
 import AuthorsList from "../components/authors-list";
-import Layout from "../components/layout";
+import { useGetAuthors } from "../data-hooks";
 
-export const query = graphql`
-  query AuthorsQuery {
-    booksStore {
-      authors {
-        name
-        age
-        books {
-          name
-          posterUrl
-          author {
-            name
-          }
-          genre
-        }
-      }
-    }
-  }
-`;
+const AuthorsPage = () => {
+  const { data, isLoading, error } = useGetAuthors();
 
-type Props = {
-  data: any;
-};
-
-const AuthorsPage = ({ data }: Props) => {
-  console.log(data);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <pre>error: {error}</pre>;
 
   return (
-    <Layout>
+    <>
       <h3>Authors: </h3>
       <AuthorsList data={data} />
-    </Layout>
+    </>
   );
 };
 

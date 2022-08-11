@@ -16,18 +16,22 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "gatsby": "^4.20.0",
     "gatsby-plugin-sass": "^5.20.0",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-graphql": "^4.20.0",
+    "normalize.css": "^8.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-query": "^4.0.0",
     "sass": "^1.54.3"
   },
   "devDependencies": {
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.16",
     "@types/react-dom": "^18.0.6",
+    "@types/react-query": "^1.2.9",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.21.0",

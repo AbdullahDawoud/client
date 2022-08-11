@@ -10,7 +10,7 @@ type Props = {
 const AuthorsList = ({ data }: Props) => {
   return (
     <div className="authors-wrapper">
-      {data?.booksStore?.authors?.map((author: any) => (
+      {data?.authors?.map((author: any) => (
         <div className="author-row" key={author.name}>
           <div className="flex flex-btw">
             <div>
