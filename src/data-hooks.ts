@@ -1,12 +1,13 @@
-import { useQuery } from "react-query";
-import axios from "axios";
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
-const endpoint = "http://localhost:4000/graphql/";
+const endpoint = 'http://localhost:4000/graphql/';
 
-const useGetBooks = () => {
+export const useGetBooks = () => {
   const booksQuery = `
   {
     books {
+      id
       name
       posterUrl
       author {
@@ -16,24 +17,22 @@ const useGetBooks = () => {
     }
   }
 `;
-  return useQuery(["books"], () => {
+  return useQuery(['books'], () => {
     return axios({
       url: endpoint,
-      method: "POST",
+      method: 'POST',
       withCredentials: false,
 
       data: {
-        query: booksQuery,
-      },
+        query: booksQuery
+      }
     }).then((response) => {
-      console.log("rrr", response);
+      console.log('rrr', response);
 
       return response.data.data;
     });
   });
 };
-export default useGetBooks;
-
 export const useGetAuthors = () => {
   const query = `
     {
@@ -41,25 +40,26 @@ export const useGetAuthors = () => {
             name
             age
             books {
+                id
                 name
                 posterUrl
                 author {
-                name
+                  name
                 }
                 genre
             }
         }
     }
   `;
-  return useQuery(["authors"], () => {
+  return useQuery(['authors'], () => {
     return axios({
       url: endpoint,
-      method: "POST",
+      method: 'POST',
       withCredentials: false,
 
       data: {
-        query: query,
-      },
+        query: query
+      }
     }).then((response) => response.data.data);
   });
 };
@@ -78,15 +78,15 @@ export const useGetBook = (id: string) => {
           }
       }
     `;
-  return useQuery(["authors"], () => {
+  return useQuery(['book'], () => {
     return axios({
       url: endpoint,
-      method: "POST",
+      method: 'POST',
       withCredentials: false,
 
       data: {
-        query: query,
-      },
+        query: query
+      }
     }).then((response) => response.data.data.book);
   });
 };

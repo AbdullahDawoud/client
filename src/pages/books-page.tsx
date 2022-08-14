@@ -1,6 +1,6 @@
-import * as React from "react";
-import BooksList from "../components/books-list";
-import useGetBooks from "../data-hooks";
+import * as React from 'react';
+import BooksList from '../components/books-list';
+import { useGetBooks } from '../data-hooks';
 
 export const BooksPage = () => {
   const { data, isLoading, error } = useGetBooks();
