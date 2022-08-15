@@ -1,12 +1,18 @@
-import React from 'react';
-import { useGetAuthors } from '../data-hooks';
+import { useQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
+import { LoadAuthorsQuery } from '../graphql/queries/get-authors';
 import Author from './Author';
 import './authors-list.scss';
 
 const AuthorsList = () => {
-    const { data, isLoading, error } = useGetAuthors();
+    const { error, loading, data } = useQuery(LoadAuthorsQuery);
+    const [author, setAuthor] = useState<any>();
 
-    if (isLoading) return <div>Loading...</div>;
+    useEffect(() => {
+        if (data) setAuthor(data.author);
+    }, [data]);
+
+    if (loading) return <div>Loading...</div>;
     if (error) return <pre>error: {error}</pre>;
 
     return (

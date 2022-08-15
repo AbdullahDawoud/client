@@ -1,30 +1,28 @@
-import React, { FC, useEffect } from 'react';
-import { useGetAuthor } from '../data-hooks';
+import { useQuery } from '@apollo/client';
+import React, { FC, useEffect, useState } from 'react';
+import { LoadSingleAuthorQuery } from '../graphql/queries/get-author';
 import BooksList from './books-list';
 
 type Props = {
     id: string;
 };
 const Author: FC<Props> = ({ id }) => {
-    console.log('>>Author id:', id);
+    const { error, loading, data } = useQuery(LoadSingleAuthorQuery, { variables: { id } });
+    const [author, setAuthor] = useState<any>();
 
-    const { isLoading, error, data: author } = useGetAuthor(id);
+    useEffect(() => {
+        if (data) setAuthor(data.author);
+    }, [data]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (loading) return <div>Loading...</div>;
     if (error) return <pre>error: {error}</pre>;
     if (!author) return <div>Author not found</div>;
-
-    // useEffect(() => {
-
-    // }, [id])
 
     return (
         <div className="author-row">
             <div className="flex flex-btw">
                 <div>
-                    <strong>
-                        {id} - {author.name}
-                    </strong>
+                    <strong>{author.name}</strong>
                     <span> {author.age} years old</span>
                 </div>
             </div>

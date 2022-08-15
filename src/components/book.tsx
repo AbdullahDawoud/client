@@ -1,16 +1,22 @@
+import { useQuery } from '@apollo/client';
 import { Link, navigate } from 'gatsby';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetBook } from '../data-hooks';
+import { LoadSingleBookQuery } from '../graphql/queries/get-book';
 import './book.scss';
 type Props = {
     id?: string;
     path?: string;
 };
 const Book = ({ id }: Props) => {
-    if (!id) return <>No id!!</>;
-    const { data: book, isLoading, error } = useGetBook(id);
+    const { error, loading, data } = useQuery(LoadSingleBookQuery, { variables: { id } });
+    const [book, setBook] = useState<any>();
 
-    if (isLoading) return <div>Loading...</div>;
+    useEffect(() => {
+        if (data) setBook(data.book);
+    }, [data]);
+
+    if (loading) return <div>Loading...</div>;
     if (error) return <pre>error: {error}</pre>;
     if (!book) return <div>Book not found</div>;
 
@@ -22,13 +28,7 @@ const Book = ({ id }: Props) => {
                 <div className="label">{book.genre}</div>
                 <div>
                     by:
-                    <a onClick={() => open(`/author/${book?.author?.id}`, '_self')}>
-                        {' '}
-                        {book.author?.name}
-                    </a>
-                    <Link to={`/author/${book?.author?.id}`} state={{ author: null }}>
-                        Open author
-                    </Link>
+                    <Link to={`/author/${book?.author?.id}`}>{book.author?.name}</Link>
                 </div>
                 <br />
                 <div className="description">

@@ -1,6 +1,7 @@
+import { useQuery } from '@apollo/client';
 import { navigate } from 'gatsby';
-import React from 'react';
-import { useGetBooks } from '../data-hooks';
+import React, { useEffect, useState } from 'react';
+import { LoadBooksQuery } from '../graphql/queries/get-books';
 import './books-list.scss';
 
 type Props = {
@@ -8,11 +9,16 @@ type Props = {
 };
 
 const BooksList = ({ authorId }: Props) => {
-    const { data, isLoading, error } = useGetBooks(authorId);
-    const books = data?.books;
+    const { error, loading, data } = useQuery(LoadBooksQuery, {
+        variables: { authorId: authorId || '' }
+    });
+    const [books, setBooks] = useState([]);
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <pre>error: {error}</pre>;
+    useEffect(() => {
+        if (data) setBooks(data.books);
+    }, [data]);
+
+    if (loading) return <div>Loading...</div>;
     if (!books) return <div>No books</div>;
 
     return (
