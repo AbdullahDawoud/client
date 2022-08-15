@@ -1,32 +1,21 @@
-import { graphql } from "gatsby";
-import React, { useEffect } from "react";
-import "./authors-list.scss";
-import BooksList from "./books-list";
+import React from 'react';
+import { useGetAuthors } from '../data-hooks';
+import Author from './Author';
+import './authors-list.scss';
 
-type Props = {
-  data: any;
-};
+const AuthorsList = () => {
+    const { data, isLoading, error } = useGetAuthors();
 
-const AuthorsList = ({ data }: Props) => {
-  return (
-    <div className="authors-wrapper">
-      {data?.authors?.map((author: any) => (
-        <div className="author-row" key={author.name}>
-          <div className="flex flex-btw">
-            <div>
-              <strong>{author.name}</strong>
-              <span> {author.age} years old</span>
-            </div>
-          </div>
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <pre>error: {error}</pre>;
 
-          <h4>Books ({author.books?.length || 0}):</h4>
-          <div className="books">
-            <BooksList books={author.books} />
-          </div>
+    return (
+        <div className="authors-wrapper">
+            {data?.authors?.map((author: any) => (
+                <Author key={author.id} id={author.id}></Author>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default AuthorsList;

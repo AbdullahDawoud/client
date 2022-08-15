@@ -3,40 +3,103 @@ import axios from 'axios';
 
 const endpoint = 'http://localhost:4000/graphql/';
 
-export const useGetBooks = () => {
-  const booksQuery = `
+export const useGetAllBooks = () => {
+    const booksQuery = `
   {
     books {
       id
       name
       posterUrl
       author {
+        id
         name
       }
       genre
     }
   }
 `;
-  return useQuery(['books'], () => {
-    return axios({
-      url: endpoint,
-      method: 'POST',
-      withCredentials: false,
+    return useQuery(['books'], () => {
+        return axios({
+            url: endpoint,
+            method: 'POST',
+            withCredentials: false,
 
-      data: {
-        query: booksQuery
-      }
-    }).then((response) => {
-      console.log('rrr', response);
+            data: {
+                query: booksQuery
+            }
+        }).then((response) => {
+            console.log('rrr', response);
 
-      return response.data.data;
+            return response.data.data;
+        });
     });
-  });
 };
 export const useGetAuthors = () => {
-  const query = `
+    const query = `
     {
         authors {
+          id
+          name
+          age
+          books {
+              id
+              name
+              posterUrl
+              author {
+                id
+                name
+              }
+              genre
+          }
+        }
+    }
+  `;
+    return useQuery(['authors'], () => {
+        return axios({
+            url: endpoint,
+            method: 'POST',
+            withCredentials: false,
+
+            data: {
+                query: query
+            }
+        }).then((response) => response.data.data);
+    });
+};
+
+export const useGetBook = (id: string) => {
+    const query = `
+      {
+        book(id: "${id}") {
+          id
+          name
+          posterUrl
+          genre
+          author {
+            id
+            name
+          }
+        }
+      }
+    `;
+    return useQuery(['book'], () => {
+        return axios({
+            url: endpoint,
+            method: 'POST',
+            withCredentials: false,
+
+            data: {
+                query: query
+            }
+        }).then((response) => response.data.data.book);
+    });
+};
+
+export const useGetAuthor = (id: string) => {
+    const query = `
+      {
+        author(id: "${id}") {
+            id
             name
             age
             books {
@@ -44,49 +107,57 @@ export const useGetAuthors = () => {
                 name
                 posterUrl
                 author {
+                  id
                   name
                 }
                 genre
             }
         }
-    }
-  `;
-  return useQuery(['authors'], () => {
-    return axios({
-      url: endpoint,
-      method: 'POST',
-      withCredentials: false,
-
-      data: {
-        query: query
-      }
-    }).then((response) => response.data.data);
-  });
-};
-
-export const useGetBook = (id: string) => {
-  const query = `
-      {
-        book(id: "${id}") {
-            name
-            posterUrl
-            id
-            genre
-            author {
-              name
-            }
-          }
       }
     `;
-  return useQuery(['book'], () => {
-    return axios({
-      url: endpoint,
-      method: 'POST',
-      withCredentials: false,
+    return useQuery(['author'], () => {
+        return axios({
+            url: endpoint,
+            method: 'POST',
+            withCredentials: false,
 
-      data: {
-        query: query
-      }
-    }).then((response) => response.data.data.book);
-  });
+            data: {
+                query: query
+            }
+        }).then((response) => response.data.data.author);
+    });
+};
+
+export const useGetBooks = (authorId?: string) => {
+    if (!authorId) return useGetAllBooks();
+
+    const query = `
+    {
+      author(id: "${authorId}") {
+          id
+          name
+          age
+          books {
+              id
+              name
+              posterUrl
+              author {
+                name
+              }
+              genre
+          }
+      } 
+    }
+  `;
+    return useQuery(['author'], () => {
+        return axios({
+            url: endpoint,
+            method: 'POST',
+            withCredentials: false,
+
+            data: {
+                query: query
+            }
+        }).then((response) => response.data.data.author);
+    });
 };

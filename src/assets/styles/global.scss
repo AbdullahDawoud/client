@@ -102,3 +102,9 @@ button {
     background: darken(colors.$main-color, 10%)
   }
 }
+
+a {
+  text-decoration: underline;
+  color: colors.$main-color;
+  cursor: pointer;
+}
