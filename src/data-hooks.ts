@@ -28,7 +28,7 @@ export const useGetAllBooks = () => {
                 query: booksQuery
             }
         }).then((response) => {
-            console.log('rrr', response);
+            // console.log('rrr', response);
 
             return response.data.data;
         });
@@ -96,6 +96,8 @@ export const useGetBook = (id: string) => {
 };
 
 export const useGetAuthor = (id: string) => {
+    console.log('>>hook: ', id);
+
     const query = `
       {
         author(id: "${id}") {
@@ -120,11 +122,14 @@ export const useGetAuthor = (id: string) => {
             url: endpoint,
             method: 'POST',
             withCredentials: false,
-
             data: {
                 query: query
             }
-        }).then((response) => response.data.data.author);
+        }).then((response) => {
+            console.log('>> author: ', response.data.data.author, query);
+
+            return response.data.data.author;
+        });
     });
 };
 

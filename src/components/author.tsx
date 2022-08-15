@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useGetAuthor } from '../data-hooks';
 import BooksList from './books-list';
 
 type Props = {
     id: string;
 };
-const Author = ({ id }: Props) => {
+const Author: FC<Props> = ({ id }) => {
+    console.log('>>Author id:', id);
+
     const { isLoading, error, data: author } = useGetAuthor(id);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <pre>error: {error}</pre>;
     if (!author) return <div>Author not found</div>;
 
-    console.log('>>Author:', author);
+    // useEffect(() => {
+
+    // }, [id])
 
     return (
         <div className="author-row">

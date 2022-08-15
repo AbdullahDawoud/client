@@ -14,29 +14,25 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions }) => {
     createPage({
         path: '/book/',
         matchPath: `/book/:id`,
-        component: resolve('./src/components/book.tsx'),
-        context: {}
+        component: resolve('./src/components/book.tsx')
     });
 
     createPage({
         path: '/author/',
         matchPath: `/author/:id`,
-        component: resolve('./src/components/author.tsx'),
-        context: {}
+        component: resolve('./src/components/author.tsx')
     });
 
     createPage({
         path: '/authors/',
         matchPath: `/authors/`,
-        component: resolve('./src/components/authors-list.tsx'),
-        context: {}
+        component: resolve('./src/components/authors-list.tsx')
     });
 
     createPage({
         path: '/books/',
         matchPath: `/books/`,
-        component: resolve('./src/components/books-list.tsx'),
-        context: {}
+        component: resolve('./src/components/books-list.tsx')
     });
 };
 
