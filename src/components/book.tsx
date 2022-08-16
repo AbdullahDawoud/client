@@ -1,16 +1,19 @@
 import { useQuery } from '@apollo/client';
-import { Link, navigate } from 'gatsby';
+import { Link } from 'gatsby';
 import React, { useEffect, useState } from 'react';
-import { useGetBook } from '../data-hooks';
 import { LoadSingleBookQuery } from '../graphql/queries/get-book';
+import { BookQuery, BookQuery_book } from '../graphql/queries/__generated__/BookQuery';
+import { BooksQuery } from '../graphql/queries/__generated__/BooksQuery';
 import './book.scss';
 type Props = {
     id?: string;
     path?: string;
 };
 const Book = ({ id }: Props) => {
-    const { error, loading, data } = useQuery(LoadSingleBookQuery, { variables: { id } });
-    const [book, setBook] = useState<any>();
+    const { error, loading, data } = useQuery<BookQuery>(LoadSingleBookQuery, {
+        variables: { id }
+    });
+    const [book, setBook] = useState<BookQuery_book | null>();
 
     useEffect(() => {
         if (data) setBook(data.book);

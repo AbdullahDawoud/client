@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { LoadAuthorsQuery } from '../graphql/queries/get-authors';
 import Author from './Author';
 import './authors-list.scss';
 
-const AuthorsList = () => {
+const AuthorsList: FC = () => {
     const { error, loading, data } = useQuery(LoadAuthorsQuery);
     const [author, setAuthor] = useState<any>();
 

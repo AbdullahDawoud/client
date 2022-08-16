@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const LoadSingleBookQuery = gql`
-    query ($id: ID) {
+    query BookQuery($id: ID) {
         book(id: $id) {
             id
             name

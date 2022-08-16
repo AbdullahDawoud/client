@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const LoadBooksQuery = gql`
-    query ($authorId: ID!) {
+    query BooksQuery($authorId: ID!) {
         books(authorId: $authorId) {
             id
             name
