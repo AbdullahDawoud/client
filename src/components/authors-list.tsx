@@ -1,32 +1,27 @@
-import { graphql } from "gatsby";
-import React, { useEffect } from "react";
-import "./authors-list.scss";
-import BooksList from "./books-list";
+import { useQuery } from '@apollo/client';
+import React, { FC, useEffect, useState } from 'react';
+import { LoadAuthorsQuery } from '../graphql/queries/get-authors';
+import Author from './Author';
+import './authors-list.scss';
 
-type Props = {
-  data: any;
-};
+const AuthorsList: FC = () => {
+    const { error, loading, data } = useQuery(LoadAuthorsQuery);
+    const [author, setAuthor] = useState<any>();
 
-const AuthorsList = ({ data }: Props) => {
-  return (
-    <div className="authors-wrapper">
-      {data?.booksStore?.authors?.map((author: any) => (
-        <div className="author-row" key={author.name}>
-          <div className="flex flex-btw">
-            <div>
-              <strong>{author.name}</strong>
-              <span> {author.age} years old</span>
-            </div>
-          </div>
+    useEffect(() => {
+        if (data) setAuthor(data.author);
+    }, [data]);
 
-          <h4>Books ({author.books?.length || 0}):</h4>
-          <div className="books">
-            <BooksList books={author.books} />
-          </div>
+    if (loading) return <div>Loading...</div>;
+    if (error) return <pre>error: {error}</pre>;
+
+    return (
+        <div className="authors-wrapper">
+            {data?.authors?.map((author: any) => (
+                <Author key={author.id} id={author.id}></Author>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default AuthorsList;

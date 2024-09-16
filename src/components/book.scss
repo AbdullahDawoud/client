@@ -1,0 +1,16 @@
+.book-wrapper {
+    display: flex;
+
+    .book-details {
+        padding-left: 50px;
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        a {
+            font-size: 14px;
+        }
+    }
+}

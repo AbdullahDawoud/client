@@ -1,38 +1,50 @@
 {
-  "name": "books-store",
-  "version": "1.0.0",
-  "private": true,
-  "description": "books-store",
-  "author": "AbdullahDawoud",
-  "keywords": [
-    "gatsby"
-  ],
-  "scripts": {
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "gatsby": "^4.20.0",
-    "gatsby-plugin-sass": "^5.20.0",
-    "gatsby-plugin-web-font-loader": "^1.0.4",
-    "gatsby-source-graphql": "^4.20.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "sass": "^1.54.3"
-  },
-  "devDependencies": {
-    "@types/node": "^17.0.45",
-    "@types/react": "^18.0.16",
-    "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
-    "eslint": "^8.21.0",
-    "eslint-plugin-react": "^7.30.1",
-    "prettier": "2.7.1",
-    "typescript": "^4.7.4"
-  }
+    "name": "the-story-keeper",
+    "version": "1.0.0",
+    "private": true,
+    "description": "the-story-keeper",
+    "author": "AbdullahDawoud",
+    "keywords": [
+        "gatsby",
+        "graphql",
+        "story",
+        "keeper",
+        "books"
+    ],
+    "scripts": {
+        "develop": "gatsby develop",
+        "start": "gatsby develop",
+        "restart": "gatsby clean & gatsby develop",
+        "build": "gatsby build",
+        "serve": "gatsby serve",
+        "clean": "gatsby clean",
+        "typecheck": "tsc --noEmit",
+        "download-schema": "apollo service:download --endpoint=http://localhost:4000/ graphql-schema.json",
+        "codegen": "npm run download-schema && apollo codegen:generate --localSchemaFile=graphql-schema.json,client-schema.graphql --target=typescript --tagName=gql"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.6.9",
+        "axios": "^0.27.2",
+        "gatsby": "^4.20.0",
+        "gatsby-plugin-sass": "^5.20.0",
+        "gatsby-plugin-web-font-loader": "^1.0.4",
+        "gatsby-source-graphql": "^4.20.0",
+        "normalize.css": "^8.0.1",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-query": "^4.0.0",
+        "sass": "^1.54.3"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.45",
+        "@types/react": "^18.0.16",
+        "@types/react-dom": "^18.0.6",
+        "@types/react-query": "^1.2.9",
+        "@typescript-eslint/eslint-plugin": "^5.33.0",
+        "@typescript-eslint/parser": "^5.33.0",
+        "eslint": "^8.21.0",
+        "eslint-plugin-react": "^7.30.1",
+        "prettier": "2.7.1",
+        "typescript": "^4.7.4"
+    }
 }
